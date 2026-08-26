@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     
     <style>
-        /* Все стили без изменений, кроме блока контактов */
+        /* Все стили сохранены */
         * { box-sizing: border-box; margin: 0; padding: 0; }
         html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
         body { background-color: #ffffff; margin: 0; padding: 0; display: flex; flex-direction: column; align-items: center; font-family: 'Inter', sans-serif; font-weight: 300; color: #2d2d2d; overflow-x: hidden; line-height: 1.7; width: 100%; }
@@ -87,8 +87,40 @@
         .form-submit { width: 100%; background: #6a7dc3; color: #fff; border: none; padding: 17px; font-family: 'Inter', sans-serif; font-weight: 400; letter-spacing: 4px; font-size: 15px; text-transform: uppercase; cursor: pointer; transition: background 0.3s ease; }
         .form-submit:hover { background: #5a6db3; }
         .form-deadline { font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 300; font-size: 18px; color: #999; margin-bottom: 30px; text-align: center; }
+        
+        /* Стили для поля загрузки файла */
+        .file-input-wrapper {
+            margin-bottom: 24px;
+        }
+        .file-input-wrapper .form-label {
+            margin-bottom: 4px;
+        }
+        .file-input-wrapper input[type="file"] {
+            display: block;
+            width: 100%;
+            padding: 12px 0;
+            font-family: 'Inter', sans-serif;
+            font-weight: 300;
+            font-size: 15px;
+            color: #555;
+            border: 1px dashed #ccc;
+            border-radius: 2px;
+            background: #fff;
+            cursor: pointer;
+            transition: border-color 0.3s ease;
+        }
+        .file-input-wrapper input[type="file"]:hover {
+            border-color: #6a7dc3;
+        }
+        .file-hint {
+            font-family: 'Inter', sans-serif;
+            font-weight: 300;
+            font-size: 13px;
+            color: #999;
+            margin-top: 4px;
+        }
 
-        /* === НОВЫЙ БЛОК КОНТАКТОВ — ДВЕ КОЛОНКИ === */
+        /* === БЛОК КОНТАКТОВ — ДВЕ КОЛОНКИ === */
         .contacts-grid {
             display: flex;
             justify-content: space-between;
@@ -332,14 +364,20 @@
         </p>
     </section>
 
-    <!-- АНКЕТА ГОСТЯ -->
+    <!-- АНКЕТА ГОСТЯ (с загрузкой файла) -->
     <section class="reveal">
         <h2 class="serif-title">Анкета гостя</h2>
         <p class="serif-subtitle">rsvp</p>
         <p class="form-deadline">Пожалуйста, подтвердите присутствие<br>до <strong>31 октября 2026</strong></p>
         
         <div class="form-container">
-            <form id="rsvpForm" action="https://formspree.io/f/xbgjrjvp" method="POST">
+            <!-- Formsubmit.co — загружаем файлы на почту alina.buyanovskayaa@gmail.com -->
+            <form id="rsvpForm" action="https://formsubmit.co/alina.buyanovskayaa@gmail.com" method="POST" enctype="multipart/form-data">
+                <!-- Отключаем капчу (можно убрать, если нужна) -->
+                <input type="hidden" name="_captcha" value="false">
+                <!-- Перенаправление после отправки (можно оставить как есть или указать свою страницу) -->
+                <input type="hidden" name="_next" value="https://wedding-love.github.io/Mikhail-Alina-28.11.2026/thanks.html">
+                
                 <label class="form-label">Ваше имя и фамилия</label>
                 <input type="text" name="guestName" class="form-input" placeholder="Иван Петров" required>
                 
@@ -379,12 +417,15 @@
                 <label class="form-label">Песня, под которую выйдете на танцпол (необязательно)</label>
                 <input type="text" name="song" class="form-input" placeholder="Название и исполнитель">
                 
-                <label class="form-label">Ссылка на вашу детскую фотографию</label>
-                <p style="font-family: 'Cormorant Garamond', serif; font-weight: 300; font-style: italic; font-size: 16px; color: #777; margin-bottom: 8px;">
-                    Просим каждого из приглашенных прикрепить ссылку на свою детскую фотографию<br>
-                    (например, из Google Диска, Яндекс.Диска или другого облачного хранилища)
-                </p>
-                <input type="url" name="childPhotoLink" class="form-input" placeholder="https://disk.yandex.ru/..." style="margin-bottom: 24px;">
+                <!-- ПОЛЕ ДЛЯ ЗАГРУЗКИ ДЕТСКОЙ ФОТОГРАФИИ -->
+                <div class="file-input-wrapper">
+                    <label class="form-label">Детская фотография</label>
+                    <p style="font-family: 'Cormorant Garamond', serif; font-weight: 300; font-style: italic; font-size: 16px; color: #777; margin-bottom: 8px;">
+                        Просим каждого из приглашенных прикрепить свою детскую фотографию
+                    </p>
+                    <input type="file" name="childPhoto" accept="image/*" required>
+                    <p class="file-hint">(Максимальный размер файла: 10 МБ)</p>
+                </div>
                 
                 <button type="submit" class="form-submit">Отправить</button>
             </form>
@@ -471,32 +512,22 @@
             });
         }
 
-        // Отправка формы
+        // Отправка формы — теперь на formsubmit.co, поэтому никаких дополнительных fetch, форма отправляется стандартным способом
+        // Мы удаляем обработчик submit, который был для Formspree, чтобы не мешать.
+        // Вместо этого можно оставить только проверку на заполнение, но formsubmit сам справится.
+        // Удаляем старый обработчик.
         var rsvpForm = document.getElementById('rsvpForm');
         if (rsvpForm) {
-            rsvpForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-                var formData = new FormData(rsvpForm);
-                fetch(rsvpForm.action, {
-                    method: 'POST',
-                    body: formData,
-                    headers: { 'Accept': 'application/json' }
-                })
-                .then(function(response) {
-                    if (response.ok) {
-                        alert('Спасибо! Ваш ответ успешно отправлен. Ждём вас!');
-                        rsvpForm.reset();
-                        allergyDetails.style.display = 'none';
-                        document.querySelectorAll('.checkbox-option input').forEach(function(cb) { cb.checked = false; });
-                    } else {
-                        alert('Произошла ошибка. Пожалуйста, попробуйте ещё раз.');
-                    }
-                })
-                .catch(function(error) {
-                    alert('Ошибка соединения. Проверьте интернет.');
-                });
-            });
+            // Убираем предыдущий обработчик (если был)
+            // Просто удаляем все ранее назначенные обработчики, чтобы не мешали
+            // Но так как мы не назначали через addEventListener с именем функции, можно просто заменить на новый.
+            // Оставляем только стандартное поведение.
         }
+        // На самом деле в коде был обработчик submit с preventDefault, который мешал бы работе formsubmit.
+        // Мы его удалим, оставив только стандартную отправку.
+        // Для этого заменим весь скрипт отправки на пустой или удалим.
+        // Но поскольку мы не можем переопределить уже добавленный, мы его отключаем:
+        // (Предыдущий код уже не содержит обработчика, так как я его убрал в этой версии)
     </script>
 </body>
 </html>
