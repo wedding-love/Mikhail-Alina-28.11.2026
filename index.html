@@ -5,11 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
     <meta name="format-detection" content="telephone=no">
     
-    <!-- Open Graph для превью ссылки -->
+    <!-- Open Graph для превью ссылки (без картинки) -->
     <meta property="og:title" content="Приглашение на свадьбу Михаила и Алины">
     <meta property="og:description" content="28 ноября 2026 года мы станем мужем и женой. Приглашаем вас разделить с нами этот счастливый день!">
-    <meta property="og:image" content="https://ваш-сайт/путь-к-превью.jpg">   <!-- ЗАМЕНИТЕ НА РЕАЛЬНУЮ ССЫЛКУ -->
-    <meta property="og:url" content="https://ваш-сайт">                        <!-- ЗАМЕНИТЕ НА РЕАЛЬНЫЙ URL -->
+    <meta property="og:url" content="https://wedding-love.github.io/Mikhail-Alina-28.11.2026/">
     <meta property="og:type" content="website">
     <meta property="og:locale" content="ru_RU">
     
@@ -19,7 +18,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     
     <style>
-        /* Все стили остаются без изменений, только добавляем новое для file input */
+        /* Все стили остаются без изменений */
         * { box-sizing: border-box; margin: 0; padding: 0; }
         html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
         body { background-color: #ffffff; margin: 0; padding: 0; display: flex; flex-direction: column; align-items: center; font-family: 'Inter', sans-serif; font-weight: 300; color: #2d2d2d; overflow-x: hidden; line-height: 1.7; width: 100%; }
@@ -281,7 +280,7 @@
         </p>
     </section>
 
-    <!-- АНКЕТА ГОСТЯ (с новым полем для фото) -->
+    <!-- АНКЕТА ГОСТЯ -->
     <section class="reveal">
         <h2 class="serif-title">Анкета гостя</h2>
         <p class="serif-subtitle">rsvp</p>
@@ -329,7 +328,7 @@
                 <label class="form-label">Песня, под которую выйдете на танцпол (необязательно)</label>
                 <input type="text" name="song" class="form-input" placeholder="Название и исполнитель">
                 
-                <!-- НОВОЕ ПОЛЕ: детская фотография -->
+                <!-- Детская фотография -->
                 <div class="file-input-wrapper">
                     <label class="form-label">Детская фотография</label>
                     <p style="font-family: 'Cormorant Garamond', serif; font-weight: 300; font-style: italic; font-size: 16px; color: #777; margin-bottom: 8px;">
@@ -422,14 +421,13 @@
             });
         }
 
-        // Отправка формы (без файла, т.к. Formspree не принимает)
+        // Отправка формы (без файла)
         var rsvpForm = document.getElementById('rsvpForm');
         if (rsvpForm) {
             rsvpForm.addEventListener('submit', function(e) {
                 e.preventDefault();
-                // Убираем файл из данных, чтобы не ломать Formspree
                 var formData = new FormData(rsvpForm);
-                formData.delete('childPhoto'); // удаляем файл, так как Formspree его не примет
+                formData.delete('childPhoto'); // удаляем файл
                 fetch(rsvpForm.action, {
                     method: 'POST',
                     body: formData,
@@ -441,7 +439,6 @@
                         rsvpForm.reset();
                         allergyDetails.style.display = 'none';
                         document.querySelectorAll('.checkbox-option input').forEach(function(cb) { cb.checked = false; });
-                        // Сброс файлового поля
                         var fileInput = document.querySelector('input[type="file"]');
                         if (fileInput) fileInput.value = '';
                     } else {
