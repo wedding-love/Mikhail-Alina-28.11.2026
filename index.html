@@ -18,7 +18,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     
     <style>
-        /* Все стили сохранены */
         * { box-sizing: border-box; margin: 0; padding: 0; }
         html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
         body { background-color: #ffffff; margin: 0; padding: 0; display: flex; flex-direction: column; align-items: center; font-family: 'Inter', sans-serif; font-weight: 300; color: #2d2d2d; overflow-x: hidden; line-height: 1.7; width: 100%; }
@@ -87,107 +86,25 @@
         .form-submit { width: 100%; background: #6a7dc3; color: #fff; border: none; padding: 17px; font-family: 'Inter', sans-serif; font-weight: 400; letter-spacing: 4px; font-size: 15px; text-transform: uppercase; cursor: pointer; transition: background 0.3s ease; }
         .form-submit:hover { background: #5a6db3; }
         .form-deadline { font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 300; font-size: 18px; color: #999; margin-bottom: 30px; text-align: center; }
-        
-        /* Стили для поля загрузки файла */
-        .file-input-wrapper {
-            margin-bottom: 24px;
-        }
-        .file-input-wrapper .form-label {
-            margin-bottom: 4px;
-        }
-        .file-input-wrapper input[type="file"] {
-            display: block;
-            width: 100%;
-            padding: 12px 0;
-            font-family: 'Inter', sans-serif;
-            font-weight: 300;
-            font-size: 15px;
-            color: #555;
-            border: 1px dashed #ccc;
-            border-radius: 2px;
-            background: #fff;
-            cursor: pointer;
-            transition: border-color 0.3s ease;
-        }
-        .file-input-wrapper input[type="file"]:hover {
-            border-color: #6a7dc3;
-        }
-        .file-hint {
-            font-family: 'Inter', sans-serif;
-            font-weight: 300;
-            font-size: 13px;
-            color: #999;
-            margin-top: 4px;
-        }
 
-        /* === БЛОК КОНТАКТОВ — ДВЕ КОЛОНКИ === */
+        /* Блок контактов — две колонки */
         .contacts-grid {
             display: flex;
             justify-content: space-between;
             gap: 20px;
             margin-bottom: 32px;
         }
-        .contact-person {
-            flex: 1;
-            text-align: center;
-        }
-        .contact-person .name {
-            font-family: 'Cormorant Garamond', serif;
-            font-weight: 400;
-            font-size: 22px;
-            color: #6a7dc3;
-            letter-spacing: 2px;
-            margin-bottom: 8px;
-        }
-        .contact-person .line {
-            font-family: 'Inter', sans-serif;
-            font-weight: 300;
-            font-size: 16px;
-            color: #555;
-            margin-bottom: 4px;
-        }
-        .contact-person .line i {
-            color: #6a7dc3;
-            width: 20px;
-            text-align: center;
-            margin-right: 8px;
-        }
-        .contact-person .link {
-            color: #6a7dc3;
-            text-decoration: none;
-            font-weight: 400;
-            border-bottom: 1px solid #6a7dc3;
-            transition: all 0.3s ease;
-        }
-        .contact-person .link:hover {
-            opacity: 0.7;
-        }
-
-        /* На маленьких экранах — колонки друг под другом */
-        @media (max-width: 420px) {
-            .contacts-grid {
-                flex-direction: column;
-                gap: 20px;
-            }
-            .contact-person .name {
-                font-size: 20px;
-            }
-            .contact-person .line {
-                font-size: 14px;
-            }
-        }
-        @media (max-width: 360px) {
-            .contact-person .name {
-                font-size: 18px;
-            }
-            .contact-person .line {
-                font-size: 13px;
-            }
-        }
-
-        .farewell-text { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-style: italic; font-size: 28px; color: #6a7dc3; margin-top: 38px; line-height: 1.6; }
+        .contact-person { flex: 1; text-align: center; }
+        .contact-person .name { font-family: 'Cormorant Garamond', serif; font-weight: 400; font-size: 22px; color: #6a7dc3; letter-spacing: 2px; margin-bottom: 8px; }
+        .contact-person .line { font-family: 'Inter', sans-serif; font-weight: 300; font-size: 16px; color: #555; margin-bottom: 4px; }
+        .contact-person .line i { color: #6a7dc3; width: 20px; text-align: center; margin-right: 8px; }
+        .contact-person .link { color: #6a7dc3; text-decoration: none; font-weight: 400; border-bottom: 1px solid #6a7dc3; transition: all 0.3s ease; }
+        .contact-person .link:hover { opacity: 0.7; }
 
         @media (max-width: 420px) {
+            .contacts-grid { flex-direction: column; gap: 20px; }
+            .contact-person .name { font-size: 20px; }
+            .contact-person .line { font-size: 14px; }
             section { padding: 48px 20px; }
             .hero-section { padding: 30px 20px; }
             .hero-names { font-size: clamp(32px, 10vw, 38px); letter-spacing: 4px; }
@@ -215,6 +132,8 @@
             .forbidden-note { font-size: 16px; }
         }
         @media (max-width: 360px) {
+            .contact-person .name { font-size: 18px; }
+            .contact-person .line { font-size: 13px; }
             section { padding: 40px 16px; }
             .hero-section { padding: 20px 16px; min-height: 100dvh; }
             .hero-names { font-size: clamp(28px, 8vw, 32px); letter-spacing: 3px; }
@@ -244,6 +163,7 @@
             .forbidden-note { font-size: 15px; }
             .form-deadline { font-size: 16px; }
         }
+        .farewell-text { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-style: italic; font-size: 28px; color: #6a7dc3; margin-top: 38px; line-height: 1.6; }
     </style>
 </head>
 <body>
@@ -364,19 +284,16 @@
         </p>
     </section>
 
-    <!-- АНКЕТА ГОСТЯ (с загрузкой файла) -->
+    <!-- АНКЕТА ГОСТЯ (Formspree + ссылка на Яндекс.Диск, без смайлов) -->
     <section class="reveal">
         <h2 class="serif-title">Анкета гостя</h2>
         <p class="serif-subtitle">rsvp</p>
-        <p class="form-deadline">Пожалуйста, подтвердите присутствие<br>до <strong>31 октября 2026</strong></p>
+        <p class="form-deadline">Пожалуйста, подтвердите присутствие<br>до 31 октября 2026</p>
         
         <div class="form-container">
-            <!-- Formsubmit.co — загружаем файлы на почту alina.buyanovskayaa@gmail.com -->
-            <form id="rsvpForm" action="https://formsubmit.co/alina.buyanovskayaa@gmail.com" method="POST" enctype="multipart/form-data">
-                <!-- Отключаем капчу (можно убрать, если нужна) -->
-                <input type="hidden" name="_captcha" value="false">
-                <!-- Перенаправление после отправки (можно оставить как есть или указать свою страницу) -->
-                <input type="hidden" name="_next" value="https://wedding-love.github.io/Mikhail-Alina-28.11.2026/thanks.html">
+            <form id="rsvpForm" action="https://formspree.io/f/xbgjrjvp" method="POST">
+                <!-- Тема письма на русском -->
+                <input type="hidden" name="_subject" value="Анкета гостя свадьбы Михаила и Алины">
                 
                 <label class="form-label">Ваше имя и фамилия</label>
                 <input type="text" name="guestName" class="form-input" placeholder="Иван Петров" required>
@@ -417,14 +334,17 @@
                 <label class="form-label">Песня, под которую выйдете на танцпол (необязательно)</label>
                 <input type="text" name="song" class="form-input" placeholder="Название и исполнитель">
                 
-                <!-- ПОЛЕ ДЛЯ ЗАГРУЗКИ ДЕТСКОЙ ФОТОГРАФИИ -->
-                <div class="file-input-wrapper">
-                    <label class="form-label">Детская фотография</label>
+                <!-- Ссылка на Яндекс.Диск (без смайлов) -->
+                <div style="margin-bottom: 24px; text-align: center;">
                     <p style="font-family: 'Cormorant Garamond', serif; font-weight: 300; font-style: italic; font-size: 16px; color: #777; margin-bottom: 8px;">
-                        Просим каждого из приглашенных прикрепить свою детскую фотографию
+                        Просим каждого из приглашенных загрузить свою детскую фотографию в нашу общую папку на Яндекс.Диске:
                     </p>
-                    <input type="file" name="childPhoto" accept="image/*" required>
-                    <p class="file-hint">(Максимальный размер файла: 10 МБ)</p>
+                    <a href="https://disk.yandex.ru/..." target="_blank" style="display: inline-block; color: #6a7dc3; font-weight: 400; text-decoration: underline; font-size: 16px; word-break: break-all;">
+                        https://disk.yandex.ru/...
+                    </a>
+                    <p style="font-family: 'Inter', sans-serif; font-weight: 300; font-size: 14px; color: #999; margin-top: 6px;">
+                        (Перейдите по ссылке и загрузите файл)
+                    </p>
                 </div>
                 
                 <button type="submit" class="form-submit">Отправить</button>
@@ -440,13 +360,11 @@
         </p>
         
         <div class="contacts-grid">
-            <!-- Михаил (слева) -->
             <div class="contact-person">
                 <div class="name">Михаил</div>
                 <div class="line"><i class="fas fa-phone-alt"></i> <a href="tel:+79167358602" class="link">+7 916 735-86-02</a></div>
                 <div class="line"><i class="fab fa-telegram-plane"></i> <a href="https://t.me/McMarMishka" target="_blank" class="link">@McMarMishka</a></div>
             </div>
-            <!-- Алина (справа) -->
             <div class="contact-person">
                 <div class="name">Алина</div>
                 <div class="line"><i class="fas fa-phone-alt"></i> <a href="tel:+79267039699" class="link">+7 926 703-96-99</a></div>
@@ -512,22 +430,32 @@
             });
         }
 
-        // Отправка формы — теперь на formsubmit.co, поэтому никаких дополнительных fetch, форма отправляется стандартным способом
-        // Мы удаляем обработчик submit, который был для Formspree, чтобы не мешать.
-        // Вместо этого можно оставить только проверку на заполнение, но formsubmit сам справится.
-        // Удаляем старый обработчик.
+        // Отправка формы через Formspree (ajax)
         var rsvpForm = document.getElementById('rsvpForm');
         if (rsvpForm) {
-            // Убираем предыдущий обработчик (если был)
-            // Просто удаляем все ранее назначенные обработчики, чтобы не мешали
-            // Но так как мы не назначали через addEventListener с именем функции, можно просто заменить на новый.
-            // Оставляем только стандартное поведение.
+            rsvpForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                var formData = new FormData(rsvpForm);
+                fetch(rsvpForm.action, {
+                    method: 'POST',
+                    body: formData,
+                    headers: { 'Accept': 'application/json' }
+                })
+                .then(function(response) {
+                    if (response.ok) {
+                        alert('Спасибо! Ваш ответ отправлен.');
+                        rsvpForm.reset();
+                        allergyDetails.style.display = 'none';
+                        document.querySelectorAll('.checkbox-option input').forEach(function(cb) { cb.checked = false; });
+                    } else {
+                        alert('Произошла ошибка. Пожалуйста, попробуйте ещё раз.');
+                    }
+                })
+                .catch(function(error) {
+                    alert('Ошибка соединения. Проверьте интернет.');
+                });
+            });
         }
-        // На самом деле в коде был обработчик submit с preventDefault, который мешал бы работе formsubmit.
-        // Мы его удалим, оставив только стандартную отправку.
-        // Для этого заменим весь скрипт отправки на пустой или удалим.
-        // Но поскольку мы не можем переопределить уже добавленный, мы его отключаем:
-        // (Предыдущий код уже не содержит обработчика, так как я его убрал в этой версии)
     </script>
 </body>
 </html>
