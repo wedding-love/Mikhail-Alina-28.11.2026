@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
     <meta name="format-detection" content="telephone=no">
     
-    <!-- Open Graph для превью ссылки (без картинки) -->
+    <!-- Open Graph -->
     <meta property="og:title" content="Приглашение на свадьбу Михаила и Алины">
     <meta property="og:description" content="28 ноября 2026 года мы станем мужем и женой. Приглашаем вас разделить с нами этот счастливый день!">
     <meta property="og:url" content="https://wedding-love.github.io/Mikhail-Alina-28.11.2026/">
@@ -18,7 +18,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     
     <style>
-        /* Все стили остаются без изменений */
         * { box-sizing: border-box; margin: 0; padding: 0; }
         html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
         body { background-color: #ffffff; margin: 0; padding: 0; display: flex; flex-direction: column; align-items: center; font-family: 'Inter', sans-serif; font-weight: 300; color: #2d2d2d; overflow-x: hidden; line-height: 1.7; width: 100%; }
@@ -38,11 +37,38 @@
         .photo-child:hover { transform: scale(1.02); }
         .invitation-text { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: 22px; line-height: 2; color: #ffffff; max-width: 360px; margin: 0 auto; }
         .invitation-highlight { font-size: 26px; font-weight: 400; font-style: italic; display: block; margin-top: 18px; letter-spacing: 2px; }
-        .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 7px; font-size: 16px; font-family: 'Inter', sans-serif; font-weight: 300; max-width: 320px; margin: 0 auto 35px; }
-        .calendar-day-header { opacity: 0.5; font-size: 12px; letter-spacing: 2px; padding-bottom: 8px; }
-        .calendar-day { padding: 6px 2px; }
-        .calendar-day.wedding { position: relative; z-index: 1; font-weight: 500; color: #6a7dc3; font-size: 18px; }
-        .calendar-day.wedding span { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 30px; height: 30px; background: #fff; border-radius: 50%; z-index: -1; border: 1px solid rgba(106, 125, 195, 0.2); }
+        
+        /* Календарь - улучшенное выравнивание */
+        .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 7px; font-size: 16px; font-family: 'Inter', sans-serif; font-weight: 300; max-width: 320px; margin: 0 auto 20px; }
+        .calendar-day-header { opacity: 0.5; font-size: 12px; letter-spacing: 2px; padding-bottom: 8px; text-align: center; }
+        .calendar-day { 
+            padding: 6px 2px; 
+            text-align: center; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            min-height: 32px;
+            position: relative;
+        }
+        .calendar-day.wedding { 
+            font-weight: 500; 
+            color: #6a7dc3; 
+            font-size: 18px; 
+        }
+        .calendar-day.wedding span { 
+            position: absolute; 
+            top: 50%; 
+            left: 50%; 
+            transform: translate(-50%, -50%); 
+            width: 30px; 
+            height: 30px; 
+            background: #fff; 
+            border-radius: 50%; 
+            z-index: -1;
+            border: 1px solid rgba(106, 125, 195, 0.2);
+        }
+        .calendar-text { max-width: 320px; margin: 0 auto; }
+        
         .location-photo { width: 100%; height: 250px; background-image: url('IMG_5241 - Изя Сшульцман.jpg'); background-size: cover; background-position: center; margin-bottom: 24px; border-radius: 2px; box-shadow: 0 8px 25px rgba(0,0,0,0.08); }
         .location-name { font-family: 'Cormorant Garamond', serif; font-weight: 400; font-size: 26px; color: #6a7dc3; letter-spacing: 3px; margin-bottom: 6px; }
         .location-address { font-family: 'Inter', sans-serif; font-weight: 300; font-size: 16px; color: #666; line-height: 1.7; margin-bottom: 26px; }
@@ -86,16 +112,18 @@
         .form-submit { width: 100%; background: #6a7dc3; color: #fff; border: none; padding: 17px; font-family: 'Inter', sans-serif; font-weight: 400; letter-spacing: 4px; font-size: 15px; text-transform: uppercase; cursor: pointer; transition: background 0.3s ease; }
         .form-submit:hover { background: #5a6db3; }
         .form-deadline { font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 300; font-size: 18px; color: #999; margin-bottom: 30px; text-align: center; }
-        /* Стили для file input */
         .file-input-wrapper { margin-bottom: 24px; }
         .file-input-wrapper .form-label { margin-bottom: 4px; }
         .file-input-wrapper input[type="file"] { display: block; width: 100%; padding: 12px 0; font-family: 'Inter', sans-serif; font-weight: 300; font-size: 15px; color: #555; border: 1px dashed #ccc; border-radius: 2px; background: #fff; cursor: pointer; transition: border-color 0.3s ease; }
         .file-input-wrapper input[type="file"]:hover { border-color: #6a7dc3; }
         .file-hint { font-family: 'Inter', sans-serif; font-weight: 300; font-size: 13px; color: #999; margin-top: 4px; }
-        .contact-item { font-family: 'Inter', sans-serif; font-weight: 300; font-size: 16px; color: #555; margin-bottom: 12px; display: flex; align-items: center; justify-content: center; gap: 10px; flex-wrap: wrap; }
-        .contact-item i { color: #6a7dc3; width: 20px; text-align: center; }
-        .contact-link { color: #6a7dc3; text-decoration: none; font-weight: 400; border-bottom: 1px solid #6a7dc3; font-size: 16px; letter-spacing: 1px; transition: all 0.3s ease; }
-        .contact-link:hover { opacity: 0.7; }
+        .contact-person { margin-bottom: 24px; text-align: center; }
+        .contact-person:last-child { margin-bottom: 0; }
+        .contact-person .name { font-family: 'Cormorant Garamond', serif; font-weight: 400; font-size: 22px; color: #6a7dc3; letter-spacing: 2px; margin-bottom: 8px; }
+        .contact-person .line { font-family: 'Inter', sans-serif; font-weight: 300; font-size: 16px; color: #555; margin-bottom: 4px; }
+        .contact-person .line i { color: #6a7dc3; width: 20px; text-align: center; margin-right: 8px; }
+        .contact-person .link { color: #6a7dc3; text-decoration: none; font-weight: 400; border-bottom: 1px solid #6a7dc3; transition: all 0.3s ease; }
+        .contact-person .link:hover { opacity: 0.7; }
         .farewell-text { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-style: italic; font-size: 28px; color: #6a7dc3; margin-top: 38px; line-height: 1.6; }
         @media (max-width: 420px) {
             section { padding: 48px 20px; }
@@ -120,8 +148,8 @@
             .calendar-grid { font-size: 14px; gap: 5px; }
             .calendar-day-header { font-size: 10px; }
             .location-photo { height: 200px; }
-            .contact-item { font-size: 14px; gap: 6px; }
-            .contact-link { font-size: 14px; }
+            .contact-person .name { font-size: 20px; }
+            .contact-person .line { font-size: 14px; }
             .farewell-text { font-size: 24px; }
             .dresscode-intro { font-size: 18px; }
             .forbidden-note { font-size: 16px; }
@@ -152,8 +180,8 @@
             .form-input, .form-select, .form-textarea { font-size: 14px; padding: 10px 12px; margin-bottom: 20px; }
             .form-submit { font-size: 13px; letter-spacing: 3px; padding: 15px; }
             .radio-option, .checkbox-option { font-size: 14px; }
-            .contact-item { font-size: 13px; }
-            .contact-link { font-size: 13px; }
+            .contact-person .name { font-size: 18px; }
+            .contact-person .line { font-size: 13px; }
             .farewell-text { font-size: 22px; }
             .dresscode-intro { font-size: 16px; }
             .forbidden-note { font-size: 15px; }
@@ -186,7 +214,7 @@
         </p>
     </section>
 
-    <!-- КАЛЕНДАРЬ -->
+    <!-- КАЛЕНДАРЬ + ТЕКСТ -->
     <section class="reveal">
         <h2 class="serif-title">Когда?</h2>
         <p class="serif-subtitle">ноябрь, 2026</p>
@@ -204,18 +232,18 @@
             <div class="calendar-day">27</div><div class="calendar-day wedding"><span></span>28</div><div class="calendar-day">29</div>
             <div class="calendar-day">30</div><div></div><div></div><div></div><div></div><div></div><div></div>
         </div>
+        <p class="warm-text calendar-text">
+            Мы будем искренне рады видеть вас среди наших гостей, чтобы вместе сделать этот день по-настоящему незабываемым.
+        </p>
     </section>
 
-    <!-- ЛОКАЦИЯ (после календаря) -->
+    <!-- ЛОКАЦИЯ -->
     <section class="reveal" style="background: #fafaf8;">
         <h2 class="serif-title">Где?</h2>
         <p class="serif-subtitle">location</p>
         <div class="location-photo"></div>
         <p class="location-name">Ресторан NEзаGORAMI</p>
         <p class="location-address">г. Москва, ул. Марксистская д.7, второй этаж</p>
-        <p class="warm-text" style="font-size: 18px; color: #666; margin-bottom: 24px; max-width: 320px; margin-left: auto; margin-right: auto;">
-            Уютное место, где мы создадим атмосферу тепла и радости для наших гостей.
-        </p>
         <a href="https://yandex.by/maps/213/moscow/?ll=37.666145%2C55.736311&mode=poi&poi%5Bpoint%5D=37.665477%2C55.736412&poi%5Buri%5D=ymapsbm1%3A%2F%2Forg%3Foid%3D99086951804%26yclid%3D2087125352611315711%26banner_id%3D72057611021535210&z=16.1" target="_blank" class="map-btn">
             <i class="fas fa-map-marker-alt"></i> Открыть карту
         </a>
@@ -302,11 +330,15 @@
                     <option value="5">5 человек</option>
                 </select>
                 
-                <!-- Аллергия -->
+                <!-- Аллергия (изначально пусто, оба радиокнопки без checked) -->
                 <label class="form-label">Есть ли у вас пищевая аллергия?</label>
                 <div class="radio-group">
-                    <label class="radio-option"><input type="radio" name="allergy" value="no" checked> Нет</label>
-                    <label class="radio-option"><input type="radio" name="allergy" value="yes"> Да</label>
+                    <label class="radio-option">
+                        <input type="radio" name="allergy" value="no" required> Нет
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="allergy" value="yes" required> Да
+                    </label>
                 </div>
                 <div id="allergyDetails" style="display: none;">
                     <label class="form-label">На что именно?</label>
@@ -349,20 +381,20 @@
         <p style="font-family: 'Cormorant Garamond', serif; font-weight: 300; font-style: italic; font-size: 19px; color: #666; margin-bottom: 26px;">
             По всем вопросам пишите или звоните — мы всегда на связи
         </p>
-        <div style="display: flex; flex-direction: column; align-items: center; gap: 12px; margin-bottom: 32px;">
-            <div class="contact-item">
-                <i class="fas fa-user"></i> Михаил: 
-                <a href="tel:+79167358602" class="contact-link">+7 916 735-86-02</a>
-                <span style="color: #aaa;">|</span>
-                <a href="https://t.me/McMarMishka" target="_blank" class="contact-link"><i class="fab fa-telegram-plane"></i> @McMarMishka</a>
+        
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 8px; margin-bottom: 32px;">
+            <div class="contact-person">
+                <div class="name">Михаил</div>
+                <div class="line"><i class="fas fa-phone-alt"></i> <a href="tel:+79167358602" class="link">+7 916 735-86-02</a></div>
+                <div class="line"><i class="fab fa-telegram-plane"></i> <a href="https://t.me/McMarMishka" target="_blank" class="link">@McMarMishka</a></div>
             </div>
-            <div class="contact-item">
-                <i class="fas fa-user"></i> Алина: 
-                <a href="tel:+79267039699" class="contact-link">+7 926 703-96-99</a>
-                <span style="color: #aaa;">|</span>
-                <a href="https://t.me/alyaskaa" target="_blank" class="contact-link"><i class="fab fa-telegram-plane"></i> @alyaskaa</a>
+            <div class="contact-person">
+                <div class="name">Алина</div>
+                <div class="line"><i class="fas fa-phone-alt"></i> <a href="tel:+79267039699" class="link">+7 926 703-96-99</a></div>
+                <div class="line"><i class="fab fa-telegram-plane"></i> <a href="https://t.me/alyaskaa" target="_blank" class="link">@alyaskaa</a></div>
             </div>
         </div>
+        
         <p class="farewell-text">С нетерпением ждём встречи!</p>
     </section>
 
@@ -412,22 +444,26 @@
         }
         startCountdown();
 
-        // Аллергия
+        // Аллергия: показываем поле для деталей, если выбрано "Да"
         var allergyRadios = document.querySelectorAll('input[name="allergy"]');
         var allergyDetails = document.getElementById('allergyDetails');
         for (var r = 0; r < allergyRadios.length; r++) {
             allergyRadios[r].addEventListener('change', function() {
-                allergyDetails.style.display = this.value === 'yes' ? 'block' : 'none';
+                if (this.value === 'yes') {
+                    allergyDetails.style.display = 'block';
+                } else {
+                    allergyDetails.style.display = 'none';
+                }
             });
         }
 
-        // Отправка формы (без файла)
+        // Отправка формы (без файла, т.к. Formspree не принимает)
         var rsvpForm = document.getElementById('rsvpForm');
         if (rsvpForm) {
             rsvpForm.addEventListener('submit', function(e) {
                 e.preventDefault();
                 var formData = new FormData(rsvpForm);
-                formData.delete('childPhoto'); // удаляем файл
+                formData.delete('childPhoto');
                 fetch(rsvpForm.action, {
                     method: 'POST',
                     body: formData,
