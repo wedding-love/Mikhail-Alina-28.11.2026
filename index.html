@@ -87,24 +87,86 @@
         .form-submit:hover { background: #5a6db3; }
         .form-deadline { font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 300; font-size: 18px; color: #999; margin-bottom: 30px; text-align: center; }
 
-        /* Блок контактов — две колонки */
+        /* === БЛОК КОНТАКТОВ — ДВЕ КОЛОНКИ НА ВСЕХ УСТРОЙСТВАХ === */
         .contacts-grid {
             display: flex;
             justify-content: space-between;
             gap: 20px;
             margin-bottom: 32px;
         }
-        .contact-person { flex: 1; text-align: center; }
-        .contact-person .name { font-family: 'Cormorant Garamond', serif; font-weight: 400; font-size: 22px; color: #6a7dc3; letter-spacing: 2px; margin-bottom: 8px; }
-        .contact-person .line { font-family: 'Inter', sans-serif; font-weight: 300; font-size: 16px; color: #555; margin-bottom: 4px; }
-        .contact-person .line i { color: #6a7dc3; width: 20px; text-align: center; margin-right: 8px; }
-        .contact-person .link { color: #6a7dc3; text-decoration: none; font-weight: 400; border-bottom: 1px solid #6a7dc3; transition: all 0.3s ease; }
-        .contact-person .link:hover { opacity: 0.7; }
+        .contact-person {
+            flex: 1;
+            text-align: center;
+        }
+        .contact-person .name {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 400;
+            font-size: 22px;
+            color: #6a7dc3;
+            letter-spacing: 2px;
+            margin-bottom: 8px;
+        }
+        .contact-person .line {
+            font-family: 'Inter', sans-serif;
+            font-weight: 300;
+            font-size: 16px;
+            color: #555;
+            margin-bottom: 4px;
+        }
+        .contact-person .line i {
+            color: #6a7dc3;
+            width: 20px;
+            text-align: center;
+            margin-right: 8px;
+        }
+        .contact-person .link {
+            color: #6a7dc3;
+            text-decoration: none;
+            font-weight: 400;
+            border-bottom: 1px solid #6a7dc3;
+            transition: all 0.3s ease;
+        }
+        .contact-person .link:hover {
+            opacity: 0.7;
+        }
+
+        /* ДВЕ КОЛОНКИ НА ЛЮБОМ ЭКРАНЕ (без вертикального схлопывания) */
+        @media (max-width: 420px) {
+            .contacts-grid {
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 10px 20px;
+            }
+            .contact-person {
+                flex: 0 1 auto;
+                min-width: 120px;
+            }
+            .contact-person .name {
+                font-size: 20px;
+            }
+            .contact-person .line {
+                font-size: 14px;
+            }
+        }
+        @media (max-width: 360px) {
+            .contact-person .name {
+                font-size: 18px;
+            }
+            .contact-person .line {
+                font-size: 13px;
+            }
+            .contacts-grid {
+                gap: 8px 16px;
+            }
+            .contact-person {
+                min-width: 100px;
+            }
+        }
+
+        .farewell-text { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-style: italic; font-size: 28px; color: #6a7dc3; margin-top: 38px; line-height: 1.6; }
 
         @media (max-width: 420px) {
-            .contacts-grid { flex-direction: column; gap: 20px; }
-            .contact-person .name { font-size: 20px; }
-            .contact-person .line { font-size: 14px; }
             section { padding: 48px 20px; }
             .hero-section { padding: 30px 20px; }
             .hero-names { font-size: clamp(32px, 10vw, 38px); letter-spacing: 4px; }
@@ -132,8 +194,6 @@
             .forbidden-note { font-size: 16px; }
         }
         @media (max-width: 360px) {
-            .contact-person .name { font-size: 18px; }
-            .contact-person .line { font-size: 13px; }
             section { padding: 40px 16px; }
             .hero-section { padding: 20px 16px; min-height: 100dvh; }
             .hero-names { font-size: clamp(28px, 8vw, 32px); letter-spacing: 3px; }
@@ -163,7 +223,6 @@
             .forbidden-note { font-size: 15px; }
             .form-deadline { font-size: 16px; }
         }
-        .farewell-text { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-style: italic; font-size: 28px; color: #6a7dc3; margin-top: 38px; line-height: 1.6; }
     </style>
 </head>
 <body>
@@ -284,7 +343,7 @@
         </p>
     </section>
 
-    <!-- АНКЕТА ГОСТЯ (Formspree + ссылка на Яндекс.Диск, без смайлов) -->
+    <!-- АНКЕТА ГОСТЯ -->
     <section class="reveal">
         <h2 class="serif-title">Анкета гостя</h2>
         <p class="serif-subtitle">rsvp</p>
@@ -292,7 +351,7 @@
         
         <div class="form-container">
             <form id="rsvpForm" action="https://formspree.io/f/xbgjrjvp" method="POST">
-                <!-- Тема письма на русском -->
+                <!-- Тема письма -->
                 <input type="hidden" name="_subject" value="Анкета гостя свадьбы Михаила и Алины">
                 
                 <label class="form-label">Ваше имя и фамилия</label>
@@ -331,10 +390,10 @@
                     <label class="checkbox-option"><input type="checkbox" name="drink_soft" value="soft"> Безалкогольное</label>
                 </div>
                 
-                <label class="form-label">Песня, под которую выйдете на танцпол (необязательно)</label>
+                <label class="form-label">Песня, под которую выйдете на танцпол</label>
                 <input type="text" name="song" class="form-input" placeholder="Название и исполнитель">
                 
-                <!-- Ссылка на Яндекс.Диск (без смайлов) -->
+                <!-- Ссылка на Яндекс.Диск -->
                 <div style="margin-bottom: 24px; text-align: center;">
                     <p style="font-family: 'Cormorant Garamond', serif; font-weight: 300; font-style: italic; font-size: 16px; color: #777; margin-bottom: 8px;">
                         Просим каждого из приглашенных загрузить свою детскую фотографию в нашу общую папку на Яндекс.Диске:
@@ -352,7 +411,7 @@
         </div>
     </section>
 
-    <!-- КОНТАКТЫ — ДВЕ КОЛОНКИ -->
+    <!-- КОНТАКТЫ — ДВЕ КОЛОНКИ НА ВСЕХ УСТРОЙСТВАХ -->
     <section class="reveal" style="padding-bottom: 90px;">
         <h2 class="serif-title" style="margin-bottom: 26px;">Связь с нами</h2>
         <p style="font-family: 'Cormorant Garamond', serif; font-weight: 300; font-style: italic; font-size: 19px; color: #666; margin-bottom: 26px;">
@@ -360,11 +419,13 @@
         </p>
         
         <div class="contacts-grid">
+            <!-- Михаил (слева) -->
             <div class="contact-person">
                 <div class="name">Михаил</div>
                 <div class="line"><i class="fas fa-phone-alt"></i> <a href="tel:+79167358602" class="link">+7 916 735-86-02</a></div>
                 <div class="line"><i class="fab fa-telegram-plane"></i> <a href="https://t.me/McMarMishka" target="_blank" class="link">@McMarMishka</a></div>
             </div>
+            <!-- Алина (справа) -->
             <div class="contact-person">
                 <div class="name">Алина</div>
                 <div class="line"><i class="fas fa-phone-alt"></i> <a href="tel:+79267039699" class="link">+7 926 703-96-99</a></div>
@@ -430,7 +491,7 @@
             });
         }
 
-        // Отправка формы через Formspree (ajax)
+        // Отправка формы
         var rsvpForm = document.getElementById('rsvpForm');
         if (rsvpForm) {
             rsvpForm.addEventListener('submit', function(e) {
