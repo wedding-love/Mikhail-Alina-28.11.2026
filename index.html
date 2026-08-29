@@ -126,6 +126,30 @@
             opacity: 0.7;
         }
 
+        /* Стиль для ссылки на Яндекс.Диск — одна строка, маленький шрифт */
+        .disk-link {
+            display: inline-block;
+            color: #8296d2;
+            font-weight: 400;
+            text-decoration: underline;
+            font-size: 13px;
+            word-break: break-all;
+            white-space: nowrap;
+            max-width: 100%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        @media (max-width: 420px) {
+            .disk-link {
+                font-size: 11px;
+            }
+        }
+        @media (max-width: 360px) {
+            .disk-link {
+                font-size: 10px;
+            }
+        }
+
         @media (max-width: 420px) {
             .contacts-grid {
                 flex-direction: row;
@@ -346,7 +370,6 @@
         
         <div class="form-container">
             <form id="rsvpForm" action="https://formspree.io/f/xbgjrjvp" method="POST">
-                <!-- Тема письма -->
                 <input type="hidden" name="_subject" value="Анкета гостя свадьбы Михаила и Алины">
                 
                 <label class="form-label">Ваше имя и фамилия</label>
@@ -375,17 +398,15 @@
                     <textarea name="allergyText" class="form-textarea" placeholder="Укажите продукты, которые вам нельзя..."></textarea>
                 </div>
                 
-                <!-- Блок с напитками УДАЛЁН -->
-                
                 <label class="form-label">Песня, под которую выйдете на танцпол</label>
                 <input type="text" name="song" class="form-input" placeholder="Название и исполнитель">
                 
-                <!-- Ссылка на Яндекс.Диск (обновлена) -->
+                <!-- Ссылка на Яндекс.Диск — одна строка, маленький шрифт -->
                 <div style="margin-bottom: 24px; text-align: center;">
                     <p style="font-family: 'Cormorant Garamond', serif; font-weight: 300; font-style: italic; font-size: 16px; color: #777; margin-bottom: 8px;">
                         Просим каждого из приглашенных загрузить свою детскую фотографию в нашу общую папку на Яндекс.Диске:
                     </p>
-                    <a href="https://disk.yandex.ru/d/vaHuJBG1VR2NWg" target="_blank" style="display: inline-block; color: #8296d2; font-weight: 400; text-decoration: underline; font-size: 16px; word-break: break-all;">
+                    <a href="https://disk.yandex.ru/d/vaHuJBG1VR2NWg" target="_blank" class="disk-link">
                         https://disk.yandex.ru/d/vaHuJBG1VR2NWg
                     </a>
                     <p style="font-family: 'Inter', sans-serif; font-weight: 300; font-size: 14px; color: #999; margin-top: 6px;">
@@ -406,13 +427,11 @@
         </p>
         
         <div class="contacts-grid">
-            <!-- Михаил (слева) -->
             <div class="contact-person">
                 <div class="name">Михаил</div>
                 <div class="line"><i class="fas fa-phone-alt"></i> <a href="tel:+79167358602" class="link">+7 916 735-86-02</a></div>
                 <div class="line"><i class="fab fa-telegram-plane"></i> <a href="https://t.me/McMarMishka" target="_blank" class="link">@McMarMishka</a></div>
             </div>
-            <!-- Алина (справа) -->
             <div class="contact-person">
                 <div class="name">Алина</div>
                 <div class="line"><i class="fas fa-phone-alt"></i> <a href="tel:+79267039699" class="link">+7 926 703-96-99</a></div>
@@ -424,7 +443,6 @@
     </section>
 
     <script>
-        // Анимация
         function revealOnScroll() {
             var reveals = document.querySelectorAll(".reveal");
             for (var i = 0; i < reveals.length; i++) {
@@ -440,7 +458,6 @@
         window.addEventListener("load", revealOnScroll);
         revealOnScroll();
 
-        // Таймер
         function startCountdown() {
             var daysEl = document.getElementById('days');
             var hoursEl = document.getElementById('hours');
@@ -469,7 +486,6 @@
         }
         startCountdown();
 
-        // Аллергия
         var allergyRadios = document.querySelectorAll('input[name="allergy"]');
         var allergyDetails = document.getElementById('allergyDetails');
         for (var r = 0; r < allergyRadios.length; r++) {
@@ -478,7 +494,6 @@
             });
         }
 
-        // Отправка формы
         var rsvpForm = document.getElementById('rsvpForm');
         if (rsvpForm) {
             rsvpForm.addEventListener('submit', function(e) {
