@@ -84,6 +84,79 @@
         .form-submit:hover { background: #7084c2; }
         .form-deadline { font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 300; font-size: 18px; color: #999; margin-bottom: 30px; text-align: center; }
 
+        /* Стили для загрузки фото */
+        .photo-upload-area {
+            border: 2px dashed #c5c5c5;
+            border-radius: 8px;
+            padding: 30px 20px;
+            text-align: center;
+            margin-bottom: 24px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            background: #fcfcfc;
+        }
+        .photo-upload-area:hover {
+            border-color: #8296d2;
+            background: #f5f7ff;
+        }
+        .photo-upload-area.dragover {
+            border-color: #8296d2;
+            background: #edf0fa;
+        }
+        .photo-upload-area .upload-icon {
+            font-size: 40px;
+            color: #8296d2;
+            margin-bottom: 10px;
+            display: block;
+        }
+        .photo-upload-area .upload-text {
+            font-family: 'Inter', sans-serif;
+            font-weight: 300;
+            font-size: 15px;
+            color: #777;
+        }
+        .photo-upload-area .upload-text strong {
+            color: #8296d2;
+            font-weight: 400;
+        }
+        #fileInput {
+            display: none;
+        }
+        #filePreview {
+            display: none;
+            margin: 16px 0 8px;
+            padding: 12px;
+            background: #edf0fa;
+            border-radius: 4px;
+            font-family: 'Inter', sans-serif;
+            font-weight: 300;
+            font-size: 14px;
+            color: #333;
+            word-break: break-all;
+        }
+        #filePreview .file-name {
+            display: block;
+            margin-bottom: 4px;
+        }
+        #filePreview .file-size {
+            font-size: 12px;
+            color: #888;
+        }
+        .remove-file-btn {
+            display: inline-block;
+            margin-top: 8px;
+            color: #c0392b;
+            font-size: 13px;
+            cursor: pointer;
+            text-decoration: underline;
+            background: none;
+            border: none;
+            font-family: 'Inter', sans-serif;
+        }
+        .remove-file-btn:hover {
+            color: #e74c3c;
+        }
+
         .contacts-grid {
             display: flex;
             justify-content: space-between;
@@ -124,30 +197,6 @@
         }
         .contact-person .link:hover {
             opacity: 0.7;
-        }
-
-        /* Стиль для ссылки на Яндекс.Диск — одна строка, маленький шрифт */
-        .disk-link {
-            display: inline-block;
-            color: #8296d2;
-            font-weight: 400;
-            text-decoration: underline;
-            font-size: 13px;
-            word-break: break-all;
-            white-space: nowrap;
-            max-width: 100%;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-        @media (max-width: 420px) {
-            .disk-link {
-                font-size: 11px;
-            }
-        }
-        @media (max-width: 360px) {
-            .disk-link {
-                font-size: 10px;
-            }
         }
 
         @media (max-width: 420px) {
@@ -211,6 +260,7 @@
             .farewell-text { font-size: 24px; }
             .dresscode-intro { font-size: 18px; }
             .forbidden-note { font-size: 16px; }
+            .photo-upload-area .upload-text { font-size: 13px; }
         }
         @media (max-width: 360px) {
             section { padding: 40px 16px; }
@@ -241,6 +291,8 @@
             .dresscode-intro { font-size: 16px; }
             .forbidden-note { font-size: 15px; }
             .form-deadline { font-size: 16px; }
+            .photo-upload-area .upload-text { font-size: 12px; }
+            .photo-upload-area .upload-icon { font-size: 32px; }
         }
     </style>
 </head>
@@ -369,7 +421,7 @@
         <p class="form-deadline">Пожалуйста, подтвердите присутствие<br>до 31 октября 2026</p>
         
         <div class="form-container">
-            <form id="rsvpForm" action="https://formspree.io/f/xbgjrjvp" method="POST">
+            <form id="rsvpForm" action="https://formspree.io/f/xbgjrjvp" method="POST" enctype="multipart/form-data">
                 <input type="hidden" name="_subject" value="Анкета гостя свадьбы Михаила и Алины">
                 
                 <label class="form-label">Ваше имя и фамилия</label>
@@ -401,17 +453,24 @@
                 <label class="form-label">Песня, под которую выйдете на танцпол</label>
                 <input type="text" name="song" class="form-input" placeholder="Название и исполнитель">
                 
-                <!-- Ссылка на Яндекс.Диск — одна строка, маленький шрифт -->
-                <div style="margin-bottom: 24px; text-align: center;">
-                    <p style="font-family: 'Cormorant Garamond', serif; font-weight: 300; font-style: italic; font-size: 16px; color: #777; margin-bottom: 8px;">
-                        Просим каждого из приглашенных загрузить свою детскую фотографию в нашу общую папку на Яндекс.Диске:
+                <!-- Загрузка фото вместо ссылки -->
+                <label class="form-label">Загрузите свою детскую фотографию</label>
+                <p style="font-family: 'Cormorant Garamond', serif; font-weight: 300; font-style: italic; font-size: 15px; color: #777; margin-bottom: 12px;">
+                    Мы хотим собрать ваши детские фото для трогательного момента на свадьбе
+                </p>
+                
+                <div class="photo-upload-area" id="uploadArea">
+                    <span class="upload-icon"><i class="fas fa-cloud-upload-alt"></i></span>
+                    <p class="upload-text">
+                        <strong>Нажмите</strong> или перетащите файл сюда<br>
+                        <span style="font-size: 12px; color: #aaa;">JPG, PNG, GIF до 10 МБ</span>
                     </p>
-                    <a href="https://disk.yandex.ru/d/vaHuJBG1VR2NWg" target="_blank" class="disk-link">
-                        https://disk.yandex.ru/d/vaHuJBG1VR2NWg
-                    </a>
-                    <p style="font-family: 'Inter', sans-serif; font-weight: 300; font-size: 14px; color: #999; margin-top: 6px;">
-                        (Перейдите по ссылке и загрузите файл)
-                    </p>
+                </div>
+                <input type="file" id="fileInput" name="guestPhoto" accept="image/*">
+                <div id="filePreview">
+                    <span class="file-name" id="fileName">Файл: example.jpg</span>
+                    <span class="file-size" id="fileSize">Размер: 2.4 МБ</span>
+                    <button type="button" class="remove-file-btn" id="removeFile">✕ Удалить файл</button>
                 </div>
                 
                 <button type="submit" class="form-submit">Отправить</button>
@@ -494,6 +553,82 @@
             });
         }
 
+        // === Загрузка фото ===
+        var uploadArea = document.getElementById('uploadArea');
+        var fileInput = document.getElementById('fileInput');
+        var filePreview = document.getElementById('filePreview');
+        var fileName = document.getElementById('fileName');
+        var fileSize = document.getElementById('fileSize');
+        var removeBtn = document.getElementById('removeFile');
+        var selectedFile = null;
+
+        // Нажатие на область
+        uploadArea.addEventListener('click', function() {
+            fileInput.click();
+        });
+
+        // Выбор файла
+        fileInput.addEventListener('change', function(e) {
+            if (this.files && this.files[0]) {
+                selectedFile = this.files[0];
+                updatePreview(selectedFile);
+            }
+        });
+
+        // Drag and drop
+        uploadArea.addEventListener('dragover', function(e) {
+            e.preventDefault();
+            this.classList.add('dragover');
+        });
+
+        uploadArea.addEventListener('dragleave', function(e) {
+            e.preventDefault();
+            this.classList.remove('dragover');
+        });
+
+        uploadArea.addEventListener('drop', function(e) {
+            e.preventDefault();
+            this.classList.remove('dragover');
+            if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+                selectedFile = e.dataTransfer.files[0];
+                fileInput.files = e.dataTransfer.files;
+                updatePreview(selectedFile);
+            }
+        });
+
+        function updatePreview(file) {
+            if (file.size > 10 * 1024 * 1024) {
+                alert('Файл слишком большой! Максимальный размер — 10 МБ.');
+                fileInput.value = '';
+                selectedFile = null;
+                filePreview.style.display = 'none';
+                return;
+            }
+            fileName.textContent = '📷 ' + file.name;
+            var sizeKB = (file.size / 1024).toFixed(1);
+            var sizeStr = sizeKB < 1024 ? sizeKB + ' КБ' : (file.size / (1024 * 1024)).toFixed(1) + ' МБ';
+            fileSize.textContent = 'Размер: ' + sizeStr;
+            filePreview.style.display = 'block';
+            uploadArea.style.display = 'none';
+        }
+
+        // Удаление файла
+        removeBtn.addEventListener('click', function() {
+            fileInput.value = '';
+            selectedFile = null;
+            filePreview.style.display = 'none';
+            uploadArea.style.display = 'block';
+        });
+
+        // Если файл уже был выбран, но форма отправляется — включаем обратно
+        document.getElementById('rsvpForm').addEventListener('submit', function(e) {
+            if (selectedFile) {
+                // Файл будет отправлен через FormData
+                // Formspree поддерживает загрузку файлов
+            }
+        });
+
+        // === Отправка формы ===
         var rsvpForm = document.getElementById('rsvpForm');
         if (rsvpForm) {
             rsvpForm.addEventListener('submit', function(e) {
@@ -509,6 +644,9 @@
                         alert('Спасибо! Ваш ответ отправлен.');
                         rsvpForm.reset();
                         allergyDetails.style.display = 'none';
+                        filePreview.style.display = 'none';
+                        uploadArea.style.display = 'block';
+                        selectedFile = null;
                     } else {
                         alert('Произошла ошибка. Пожалуйста, попробуйте ещё раз.');
                     }
