@@ -453,11 +453,8 @@
                 <label class="form-label">Песня, под которую выйдете на танцпол</label>
                 <input type="text" name="song" class="form-input" placeholder="Название и исполнитель">
                 
-                <!-- Загрузка фото вместо ссылки -->
+                <!-- Загрузка фото -->
                 <label class="form-label">Загрузите свою детскую фотографию</label>
-                <p style="font-family: 'Cormorant Garamond', serif; font-weight: 300; font-style: italic; font-size: 15px; color: #777; margin-bottom: 12px;">
-                    Мы хотим собрать ваши детские фото для трогательного момента на свадьбе
-                </p>
                 
                 <div class="photo-upload-area" id="uploadArea">
                     <span class="upload-icon"><i class="fas fa-cloud-upload-alt"></i></span>
@@ -562,12 +559,10 @@
         var removeBtn = document.getElementById('removeFile');
         var selectedFile = null;
 
-        // Нажатие на область
         uploadArea.addEventListener('click', function() {
             fileInput.click();
         });
 
-        // Выбор файла
         fileInput.addEventListener('change', function(e) {
             if (this.files && this.files[0]) {
                 selectedFile = this.files[0];
@@ -575,7 +570,6 @@
             }
         });
 
-        // Drag and drop
         uploadArea.addEventListener('dragover', function(e) {
             e.preventDefault();
             this.classList.add('dragover');
@@ -612,7 +606,6 @@
             uploadArea.style.display = 'none';
         }
 
-        // Удаление файла
         removeBtn.addEventListener('click', function() {
             fileInput.value = '';
             selectedFile = null;
@@ -620,15 +613,6 @@
             uploadArea.style.display = 'block';
         });
 
-        // Если файл уже был выбран, но форма отправляется — включаем обратно
-        document.getElementById('rsvpForm').addEventListener('submit', function(e) {
-            if (selectedFile) {
-                // Файл будет отправлен через FormData
-                // Formspree поддерживает загрузку файлов
-            }
-        });
-
-        // === Отправка формы ===
         var rsvpForm = document.getElementById('rsvpForm');
         if (rsvpForm) {
             rsvpForm.addEventListener('submit', function(e) {
