@@ -69,7 +69,7 @@
         .color-circle { width: 55px; height: 55px; border-radius: 50%; display: inline-block; border: 2px solid rgba(0,0,0,0.1); box-shadow: 0 3px 10px rgba(0,0,0,0.04); transition: transform 0.3s ease; }
         .color-circle:hover { transform: scale(1.1); }
         .forbidden-note { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-style: italic; font-size: 18px; color: #777; margin-top: 10px; line-height: 1.6; }
-        .form-container { background: #fafaf8; padding: 32px 24px; border: 1px solid #eee; text-align: left; border-radius: 2px; }
+        .form-container { background: #fafaf8; padding: 32px 24px; border: 1px solid #eee; text-align: left; border-radius: 2px; position: relative; }
         .form-label { font-family: 'Cormorant Garamond', serif; font-weight: 400; font-size: 20px; color: #8296d2; display: block; margin-bottom: 8px; letter-spacing: 1px; }
         .form-input, .form-select, .form-textarea { width: 100%; padding: 14px 16px; margin: 0 0 24px; border: 1px solid #e0ddd6; font-family: 'Inter', sans-serif; font-weight: 300; font-size: 16px; background: #fff; outline: none; transition: border-color 0.3s ease; -webkit-appearance: none; -moz-appearance: none; appearance: none; color: #2d2d2d; }
         .form-input:focus, .form-select:focus, .form-textarea:focus { border-color: #8296d2; }
@@ -155,6 +155,33 @@
         }
         .remove-file-btn:hover {
             color: #e74c3c;
+        }
+
+        /* Стильное уведомление об отправке */
+        .success-message {
+            display: none;
+            text-align: center;
+            padding: 30px 20px;
+            background: #f0f5f0;
+            border-radius: 8px;
+            border: 1px solid #b8d4b8;
+        }
+        .success-message.show {
+            display: block;
+        }
+        .success-message .title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 24px;
+            color: #4a7a4a;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+        .success-message .text {
+            font-family: 'Inter', sans-serif;
+            font-weight: 300;
+            font-size: 16px;
+            color: #555;
+            line-height: 1.6;
         }
 
         .contacts-grid {
@@ -261,6 +288,8 @@
             .dresscode-intro { font-size: 18px; }
             .forbidden-note { font-size: 16px; }
             .photo-upload-area .upload-text { font-size: 13px; }
+            .success-message .title { font-size: 20px; }
+            .success-message .text { font-size: 14px; }
         }
         @media (max-width: 360px) {
             section { padding: 40px 16px; }
@@ -293,6 +322,8 @@
             .form-deadline { font-size: 16px; }
             .photo-upload-area .upload-text { font-size: 12px; }
             .photo-upload-area .upload-icon { font-size: 32px; }
+            .success-message .title { font-size: 18px; }
+            .success-message .text { font-size: 13px; }
         }
     </style>
 </head>
@@ -421,11 +452,10 @@
         <p class="form-deadline">Пожалуйста, подтвердите присутствие<br>до 31 октября 2026</p>
         
         <div class="form-container">
+            <!-- Форма отправляется на FormSubmit -->
             <form id="rsvpForm" action="https://formsubmit.co/dancertau@mail.ru" method="POST" enctype="multipart/form-data">
-                <!-- Скрытые поля для FormSubmit -->
                 <input type="hidden" name="_subject" value="Анкета гостя свадьбы Михаила и Алины">
                 <input type="hidden" name="_captcha" value="false">
-                <input type="hidden" name="_next" value="https://wedding-love.github.io/Mikhail-Alina-28.11.2026/">
                 
                 <label class="form-label">Ваше имя и фамилия</label>
                 <input type="text" name="Имя и фамилия" class="form-input" placeholder="Иван Петров" required>
@@ -475,6 +505,12 @@
                 
                 <button type="submit" class="form-submit">Отправить</button>
             </form>
+
+            <!-- Уведомление об успешной отправке (показывается вместо формы) -->
+            <div class="success-message" id="successMessage">
+                <div class="title">Спасибо!</div>
+                <div class="text">Ваш ответ успешно отправлен. Мы очень рады, что вы будете с нами в этот день.</div>
+            </div>
         </div>
     </section>
 
@@ -616,8 +652,37 @@
             uploadArea.style.display = 'block';
         });
 
-        // Отправка формы — теперь обычная, без fetch
-        // FormSubmit сам обработает отправку
+        // === Отправка формы без перезагрузки и без перенаправления ===
+        var rsvpForm = document.getElementById('rsvpForm');
+        var successMessage = document.getElementById('successMessage');
+
+        if (rsvpForm) {
+            rsvpForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                var formData = new FormData(rsvpForm);
+
+                fetch(rsvpForm.action, {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                })
+                .then(function(response) {
+                    if (response.ok) {
+                        // Прячем форму, показываем уведомление
+                        rsvpForm.style.display = 'none';
+                        successMessage.classList.add('show');
+                    } else {
+                        alert('Произошла ошибка при отправке. Пожалуйста, попробуйте ещё раз.');
+                    }
+                })
+                .catch(function(error) {
+                    alert('Ошибка соединения. Проверьте интернет и попробуйте снова.');
+                });
+            });
+        }
     </script>
 </body>
 </html>
